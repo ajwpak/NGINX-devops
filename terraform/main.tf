@@ -9,7 +9,7 @@ terraform {
 }
 
 provider "aws" {
-  profile = "default"
+  AWS_METADATA_URL = "http://169.254.169.254:80/latest"
   region  = "us-west-1"
 }
 
