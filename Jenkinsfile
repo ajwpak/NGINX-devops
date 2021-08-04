@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', credentialsId: 'Jenkins', url: 'git@github.com:ajwpak/NGINX-devops.git'
+                git branch: 'main', credentialsId: 'jenkins-github', url: 'git@github.com:ajwpak/NGINX-devops.git'
             }
         }
     
@@ -18,11 +18,12 @@ pipeline {
             steps {
                 script {
                     if (params.Action == "apply") {
-                        sh 'terraform init terraform/static-site'
-                        sh 'terraform apply -var "group=web" -var --auto-approve terraform/static-site'
+                        sh 'terraform -chdir=/var/lib/jenkins/workspace/nginx-pipeline/terraform init'
+                        sh 'terraform -chdir=/var/lib/jenkins/workspace/nginx-pipeline/terraform apply -auto-approve'
                     }
                     else {
-                        sh 'terraform destroy -var "group=web" --auto-approve terraform/static-site'
+
+                        sh 'terraform -chdir=/var/lib/jenkins/workspace/nginx-pipeline/terraform destroy -auto-approve'
                     }
                 }
             }
@@ -30,8 +31,8 @@ pipeline {
 
         stage('Ansible') {
             steps {
-                retry(count: 5) {
-                    sh 'ansible-playbook -i ~/devops1/ansible/aws_ec2.yml ~/devops1/ansible/playbook.yml'
+                retry(count: 3) {
+                    sh 'ansible-playbook -i aws_ec2.yml playbook.yml'
                 }
             }
         }

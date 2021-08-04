@@ -17,7 +17,7 @@ resource "aws_instance" "site" {
   ami                    = "ami-0d382e80be7ffdae5"
   instance_type          = "t2.micro"
   iam_instance_profile   = "EC2-SSM"
-  key_name               = "mackey"
+  key_name               = "ajwpakaws-gen-west1"
   vpc_security_group_ids = ["sg-09231cb136f944c71"]
   subnet_id              = "subnet-050b644e891256ec8"
 
