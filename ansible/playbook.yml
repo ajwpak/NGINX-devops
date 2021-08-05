@@ -22,7 +22,7 @@
         enabled: true
       
     - name: Login into DockerHub
-      docker-login: 
+      docker_login: 
         username: ajwpak
         password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -36,6 +36,6 @@
       shell: docker run --name nginx-static -dit -p 80:80 -p 443:443 ajwpak/nginx-static
 
     - name: Logout of DockerHub
-      docker-login:
+      docker_login:
         state: absent
           
