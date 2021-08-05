@@ -31,9 +31,9 @@ pipeline {
 
         stage('Ansible') {
             steps {
-                retry(count: 3) {
-                    sh 'ansible-playbook -i aws_ec2.yml playbook.yml'
-                }
+                sleep 60
+                sh 'ansible-playbook -i /etc/ansible/aws_ec2.yml ansible/playbook.yml'
+                
             }
         }
     }

@@ -20,7 +20,22 @@
         name: docker
         state: started
         enabled: true
+      
+    - name: Login into DockerHub
+      docker-login: 
+        username: ajwpak
+        password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          33386135346137313063316166383534333733653637633664363761393962356539636330653133
+          6237653561396262303436653431656335323330366132650a316333626563626139613366396434
+          63623663363464616162363734323066396364653961383836323566636566623233656461653239
+          3736343037653733660a643866313865383632623938393033303034653461346139376266643834
+          6332
 
     - name: Run Image
       shell: docker run --name nginx-static -dit -p 80:80 -p 443:443 ajwpak/nginx-static
+
+    - name: Logout of DockerHub
+      docker-login:
+        state: absent
           
