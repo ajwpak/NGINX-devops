@@ -24,7 +24,7 @@
     - name: Login into DockerHub
       docker_login: 
         username: ajwpak
-        password: {{ DOCKER_PWD }}
+        password: "{{ DOCKER_PWD }}"
 
     - name: Run Image
       shell: docker run --name nginx-static -dit -p 80:80 -p 443:443 ajwpak/nginx-static
@@ -32,4 +32,3 @@
     - name: Logout of DockerHub
       docker_login:
         state: absent
-          
