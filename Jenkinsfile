@@ -32,7 +32,7 @@ pipeline {
         stage('Ansible') {
             steps {
                 sleep 60
-                sh 'ansible-playbook -i /etc/ansible/aws_ec2.yml ansible/playbook.yml'
+                sh 'ansible-playbook -i /etc/ansible/aws_ec2.yml ansible/playbook.yml --vault-password-file pass-ansible.txt'
                 
             }
         }
